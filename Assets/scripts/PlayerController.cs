@@ -71,6 +71,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             changeState();
+            if(MyState == State.Normal)
+            {
+                lineRenderer.enabled = false;
+            }
         }
     }
     void FixedUpdate()
@@ -92,7 +96,6 @@ public class PlayerController : MonoBehaviour
         if(MyState == State.Normal)
         {
             MyState = State.Distance;
-            lineRenderer.enabled = false;
         }
         else if(MyState == State.Distance) 
         {
@@ -114,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
             if(closestID == -1)
             {
+                lineRenderer.enabled= false;
                 return;
             }
             if (pickups[closestID].GetComponent<Renderer>().material.color != Color.green)
@@ -177,8 +181,6 @@ public class PlayerController : MonoBehaviour
 
         if(MyState != State.Vision) 
         {
-            if (MyState == State.Normal)
-                lineRenderer.enabled=false;
             if (nextID == -1)
             {
                 return;
@@ -190,10 +192,6 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (nextID == -1)
-        {
-            return;
-        }
         for (int i = 0; i < pickups.Length; i++)
         {
             if (i == nextID)
@@ -245,7 +243,6 @@ public class PlayerController : MonoBehaviour
 
         if(score >= numPickups)
         {
-            lineRenderer.enabled = false;
             winText.text = "You Win!";
         }
     }
