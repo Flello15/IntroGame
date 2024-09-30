@@ -175,14 +175,23 @@ public class PlayerController : MonoBehaviour
     {
         int nextID = getPathClosest(pickups);
 
-        if(nextID == -1)
-        {
-            return;
-        }
         if(MyState != State.Vision) 
         {
+            if (MyState == State.Normal)
+                lineRenderer.enabled=false;
+            if (nextID == -1)
+            {
+                return;
+            }
+
             if (pickups[nextID].GetComponent<Renderer>().material.color != Color.blue)
                 pickups[nextID].GetComponent<Renderer>().material.color = Color.white;
+            return;
+        }
+
+
+        if (nextID == -1)
+        {
             return;
         }
         for (int i = 0; i < pickups.Length; i++)
